@@ -5,20 +5,13 @@ import java.util.List;
 
 public class ToDoList {
 
+    // Classe interne pour représenter une tâche
     private static class Task {
         private final int id;
-        private String message;
+        private final String message;
 
         public Task(int id, String message) {
             this.id = id;
-            this.message = message;
-        }
-
-        public int getId() {
-            return id;
-        }
-
-        public void setMessage(String message) {
             this.message = message;
         }
 
@@ -31,36 +24,26 @@ public class ToDoList {
         }
     }
 
+    // Liste pour stocker les tâches
     private final List<Task> tasks;
 
+    // Compteur pour l'auto-incrémentation des IDs
     private int taskIdCounter;
 
-
+    // Constructeur
     public ToDoList() {
         this.tasks = new ArrayList<>();
         this.taskIdCounter = 1; // Les IDs commencent à 1
     }
 
+    // Méthode pour ajouter une tâche
     public void addTask(String taskMessage) {
         Task newTask = new Task(taskIdCounter, taskMessage);
         tasks.add(newTask);
         taskIdCounter++;
     }
 
-    public boolean removeTask(int id) {
-        return tasks.removeIf(task -> task.getId() == id);
-    }
-
-    public boolean updateTask(int id, String newTask) {
-        for (Task task : tasks) {
-            if (task.getId() == id) {
-                task.setMessage(newTask);
-                return true;
-            }
-        }
-        return false;
-    }
-
+    // Méthode pour récupérer toutes les tâches
     public List<String> getTasks() {
         List<String> taskList = new ArrayList<>();
         for (Task task : tasks) {
@@ -69,22 +52,19 @@ public class ToDoList {
         return taskList;
     }
 
+    // Méthode principale pour tester la classe
     public static void main(String[] args) {
         ToDoList toDoList = new ToDoList();
 
+        // Ajout de tâches
         toDoList.addTask("Acheter du lait");
         toDoList.addTask("Réviser pour l'examen");
         toDoList.addTask("Appeler le docteur");
 
-        System.out.println("Modification de la tâche avec ID 2 :");
-        toDoList.updateTask(2, "Réviser pour l'examen final");
-
-        System.out.println("Suppression de la tâche avec ID 3 :");
-        toDoList.removeTask(3);
-
+        // Affichage des tâches
         List<String> tasks = toDoList.getTasks();
         for (String task : tasks) {
             System.out.println(task);
- }
-}
+        }
+    }
 }
